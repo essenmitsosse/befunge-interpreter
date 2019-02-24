@@ -10,6 +10,8 @@ module.exports = {
 		'array-bracket-spacing': [ 2, 'always' ],
 		'object-curly-spacing': [ 2, 'always' ],
 		'computed-property-spacing': [ 2, 'always' ],
+		'no-undef': 0,
+		'no-unused-vars': 0,
 	},
 	"settings": {
 		"import/resolver": {
