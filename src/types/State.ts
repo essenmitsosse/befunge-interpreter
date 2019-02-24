@@ -1,7 +1,7 @@
-import BefungeCode from './BefungeCode';
+import BefungeCodeParsed from './BefungeCodeParsed';
 
 interface State {
-	code: BefungeCode;
+	code: BefungeCodeParsed;
 	posX: number;
 	posY: number;
 	isDone: boolean;

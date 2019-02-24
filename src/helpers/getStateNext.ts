@@ -1,18 +1,22 @@
 import State from '../types/State';
-import getCurrentCharacter from './getCurrentCharacter';
+import getCurrentFunction from './getCurrentFunction';
 
 export default ( state: State ): {
 	state: State,
 	output?: string,
 } => {
-	const currentCharacter = getCurrentCharacter( state );
+	const currentFunction = getCurrentFunction( state );
+	const {
+		moveX, moveY, isDone, output,
+	} = currentFunction( state );
 
 	return {
 		state: {
 			...state,
-			posX: state.posX + 1,
-			isDone: state.posX > 5,
+			posX: moveX ? state.posX + moveX : state.posX,
+			posY: moveY ? state.posY + moveY : state.posY,
+			isDone: !!isDone,
 		},
-		output: currentCharacter,
+		output,
 	};
 };

@@ -1,5 +1,7 @@
-import BefungeCode from '../types/BefungeCode';
+import BefungeCodeRaw from '../types/BefungeCodeRaw';
 
-export default ( input: string | string[] ): BefungeCode => ( typeof input === 'string'
-	? input.split( '\n' )
-	: input );
+export default ( input: string | string[] ): BefungeCodeRaw => (
+	typeof input === 'string'
+		? input.split( '\n' )
+		: input
+);
