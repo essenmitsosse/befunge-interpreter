@@ -1,0 +1,32 @@
+{
+	"name": "befunge-interpreter",
+	"version": "0.0.1",
+	"description": "Typescript Befunge interpreter",
+	"main": "index.js",
+	"scripts": {
+		"start": "tsc",
+		"lint": "eslint src --ext .ts --fix",
+		"test": "jest"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/essenmitsosse/befunge-interpreter.git"
+	},
+	"author": "Marcus Blättermann",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/essenmitsosse/befunge-interpreter/issues"
+	},
+	"homepage": "https://github.com/essenmitsosse/befunge-interpreter#readme",
+	"devDependencies": {
+		"@types/jest": "^24.0.6",
+		"@typescript-eslint/eslint-plugin": "^1.4.1",
+		"@typescript-eslint/parser": "^1.4.1",
+		"eslint": "^5.14.1",
+		"eslint-config-airbnb-base": "^13.1.0",
+		"eslint-plugin-import": "^2.16.0",
+		"jest": "^24.1.0",
+		"ts-jest": "^24.0.0",
+		"typescript": "^3.3.3333"
+	}
+}
