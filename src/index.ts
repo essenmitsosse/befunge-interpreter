@@ -1,1 +1,1 @@
-export default 'foo';
+export default ( input: string | string[] ) => input;
