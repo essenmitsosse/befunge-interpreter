@@ -9,5 +9,5 @@
 		"noUnusedLocals": true
 	},
 	"include": ["src"],
-	"exclude": ["node_modules", "**/__tests__/*","**/*.spec.ts"]
+	"exclude": ["node_modules", "**/__tests__/*", "**/*.spec.ts", "dist"]
 }
