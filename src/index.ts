@@ -8,5 +8,5 @@ export default ( input: string | string[] ) => {
 	const codeParsed = parseCode( codeRaw );
 	const stateBase = getStateBase( codeParsed );
 	const list = [ ...iterateBefungeCode( stateBase ) ];
-	return list.join( ',' );
+	return list.join( '' );
 };
