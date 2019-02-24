@@ -7,5 +7,10 @@ module.exports = {
 	transform: {
 		'^.+\\.tsx?$': 'ts-jest',
 	},
+	globals: {
+		'ts-jest': {
+			diagnostics: false,
+		},
+	},
 	testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
 };
