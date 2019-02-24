@@ -40,7 +40,7 @@ test.skip( ' Sieve of Eratosthenes', () => {
 	] ) ).toEqual( '23571113171923293137' );
 } );
 
-test.skip( 'Random direction', () => {
+test( 'Random direction', () => {
 	let amountOf1s = 0;
 	let i = 0;
 
