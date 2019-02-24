@@ -11,11 +11,13 @@ const numberPrintingFunctions: { [ key: string ]: BefungeFunction } = new Array(
 const befungeFunctions: { [ key: string ]: BefungeFunction } = {
 	...numberPrintingFunctions,
 
+	/* eslint-disable quote-props */
+	' ': () => ( {} ),
 	'>': () => ( { move: { x: 1 } } ),
 	'<': () => ( { move: { x: -1 } } ),
 	'^': () => ( { move: { y: -1 } } ),
-	v: () => ( { move: { y: 1 } } ),
-	default: () => ( { isDone: true } ),
+	'v': () => ( { move: { y: 1 } } ),
+	'default': () => ( { isDone: true } ),
 };
 
 export default befungeFunctions;
