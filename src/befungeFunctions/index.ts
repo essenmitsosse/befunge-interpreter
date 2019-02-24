@@ -1,9 +1,8 @@
 import BefungeFunction from '../types/BefungeFunction';
 
-const getPrintFunction = ( input: string | number ): BefungeFunction => {
-	const string = input.toString();
-	return () => ( { output: string } );
-};
+const getPrintFunction = ( input: number ): BefungeFunction => ( { stack } ) => ( {
+	newStack: [ ...stack, input ],
+} );
 
 const numberPrintingFunctions: { [ key: string ]: BefungeFunction } = new Array( 10 )
 	.fill( null )
