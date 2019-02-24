@@ -1,28 +1,10 @@
 import BefungeFunction from '../types/BefungeFunction';
-import Stack from '../types/Stack';
-
-const getPrintFunction = ( input: number ): BefungeFunction => ( { stack } ) => ( {
-	newStack: [ ...stack, input ],
-} );
-
-const numberPrintingFunctions: { [ key: string ]: BefungeFunction } = new Array( 10 )
-	.fill( null )
-	.reduce( ( map, _, index ) => ( { ...map, [ index ]: getPrintFunction( index ) } ), {} );
-
-const getLastStackValue = ( stack: Stack ) => ( stack.length === 0 ? 0 : stack.slice( -1 )[ 0 ] );
-
-const popStack = ( stack: Stack ) => {
-	const newStack = stack.slice( 0, -1 );
-	const popped = getLastStackValue( stack );
-
-	return {
-		newStack,
-		popped,
-	};
-};
+import getNumberPrintingFunctions from './getNumberPrintingFunctions';
+import popStack from './popStack';
+import getLastStackValue from './getLastStackValue';
 
 const befungeFunctions: { [ key: string ]: BefungeFunction } = {
-	...numberPrintingFunctions,
+	...getNumberPrintingFunctions,
 
 	/* eslint-disable quote-props */
 	' ': () => ( {} ),
