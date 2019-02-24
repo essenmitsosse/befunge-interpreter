@@ -5,16 +5,21 @@ export default ( state: State ): {
 	state: State,
 	output?: string,
 } => {
-	const currentFunction = getCurrentFunction( state );
+	const getCurrentStateChange = getCurrentFunction( state );
+	const stateChange = getCurrentStateChange( state );
+
 	const {
-		moveX, moveY, isDone, output,
-	} = currentFunction( state );
+		isDone, output,
+	} = stateChange;
+
+	const move = stateChange.move ? stateChange.move : state.move;
 
 	return {
 		state: {
 			...state,
-			posX: moveX ? state.posX + moveX : state.posX,
-			posY: moveY ? state.posY + moveY : state.posY,
+			move,
+			posX: move.x ? state.posX + move.x : state.posX,
+			posY: move.y ? state.posY + move.y : state.posY,
 			isDone: !!isDone,
 		},
 		output,

@@ -1,6 +1,7 @@
-interface StateChange {
-	moveX?: number;
-	moveY?: number;
+import Move from './Move';
+
+export interface StateChange {
+	move?: Move;
 	isDone?: true;
 	output?: string;
 }

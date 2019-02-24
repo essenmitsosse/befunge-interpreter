@@ -1,15 +1,6 @@
 import BefungeCodeRaw from '../types/BefungeCodeRaw';
 import BefungeCodeParsed from '../types/BefungeCodeParsed';
-import BefungeFunction from '../types/BefungeFunction';
-import State from '../types/State';
-
-const parseCharacter = ( character: string ): BefungeFunction => ( state: State ) => (
-	state.posX > 3
-		? {
-			isDone: true,
-		}
-		: { output: String.fromCharCode( 97 + state.posX ), moveX: 1 }
-);
+import parseCharacter from './parseCharacter';
 
 const parseLine = ( codeLine: string ) => codeLine
 	.split( '' )
