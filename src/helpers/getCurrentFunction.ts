@@ -1,3 +1,7 @@
 import State from '../types/State';
+import BefungeCodeParsed from '../types/BefungeCodeParsed';
 
-export default ( { code, posX, posY }: Pick<State, 'code' | 'posX' | 'posY'> ) => code[ posY ][ posX ];
+export default (
+	code: BefungeCodeParsed,
+	{ posX, posY }: Pick<State, 'posX' | 'posY'>,
+) => code[ posY ][ posX ];

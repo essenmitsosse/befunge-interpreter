@@ -1,11 +1,13 @@
 import State from '../types/State';
+import BefungeCodeParsed from '../types/BefungeCodeParsed';
 import getCurrentFunction from './getCurrentFunction';
 
-export default ( state: State ): {
+export default ( code: BefungeCodeParsed, state: State ): {
 	state: State,
+	isDone: boolean,
 	output?: string,
 } => {
-	const getCurrentStateChange = getCurrentFunction( state );
+	const getCurrentStateChange = getCurrentFunction( code, state );
 	const stateChange = getCurrentStateChange( state );
 
 	const move = stateChange.move ? stateChange.move : state.move;
@@ -16,8 +18,9 @@ export default ( state: State ): {
 
 	return {
 		state: {
-			...state, stack, move, posX, posY, isDone,
+			stack, move, posX, posY,
 		},
+		isDone,
 		output: stateChange.output,
 	};
 };

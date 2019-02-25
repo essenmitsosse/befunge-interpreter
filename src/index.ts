@@ -1,12 +1,11 @@
 import convertInputToBefungeCode from './helpers/convertInputToBefungeCode';
 import iterateBefungeCode from './helpers/iterateBefungeCode';
-import getStateBase from './helpers/getStateBase';
+import stateBase from './helpers/stateBase';
 import parseCode from './helpers/parseCode';
 
 export default ( input: string | string[] ) => {
 	const codeRaw = convertInputToBefungeCode( input );
 	const codeParsed = parseCode( codeRaw );
-	const stateBase = getStateBase( codeParsed );
-	const list = [ ...iterateBefungeCode( stateBase ) ];
+	const list = [ ...iterateBefungeCode( codeParsed, stateBase ) ];
 	return list.join( '' );
 };

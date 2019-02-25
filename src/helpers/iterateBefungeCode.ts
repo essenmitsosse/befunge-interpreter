@@ -1,13 +1,17 @@
 import State from '../types/State';
+import BefungeCodeParsed from '../types/BefungeCodeParsed';
 import getStateNext from './getStateNext';
 
-export default function* iterateBefungeCode( stateInput: State ) {
+export default function* iterateBefungeCode( codeParsed: BefungeCodeParsed, stateInput: State ) {
 	let stateCurrent = stateInput;
+	let isDone = false;
 
-	while ( !stateCurrent.isDone ) {
-		const { state, output } = getStateNext( stateCurrent );
-		stateCurrent = state;
+	while ( !isDone ) {
+		const result = getStateNext( codeParsed, stateCurrent );
+		/* eslint-disable prefer-destructuring */
+		isDone = result.isDone;
+		stateCurrent = result.state;
 
-		if ( output ) { yield output; }
+		if ( result.output ) { yield result.output; }
 	}
 }
