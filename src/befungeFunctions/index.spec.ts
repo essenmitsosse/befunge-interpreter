@@ -1,6 +1,7 @@
 import befungeFunctions from './index';
 import State from '../types/State';
 import StateChange from '../types/StateChange';
+import BefungeCodeRaw from '../types/BefungeCodeParsed';
 
 const {
 	/* eslint-disable quote-props */
@@ -34,6 +35,8 @@ const stateEmpty: State = {
 	stack: [],
 };
 
+const code: BefungeCodeRaw = [];
+
 const stateNotEmpty: State = {
 	...stateEmpty,
 	stack: [ 0, 1, 2, 3 ], // No Magic numbers, tests expect those values!
@@ -41,78 +44,78 @@ const stateNotEmpty: State = {
 
 describe( '\' \' SPACE', () => {
 	test( 'empty state change', () => {
-		expect( SPACE( stateEmpty ) )
+		expect( SPACE( stateEmpty, code ) )
 			.toEqual( {} as StateChange );
 	} );
 } );
 
 describe( '\'>\' RIGHT', () => {
 	test( 'change move to right', () => {
-		expect( RIGHT( stateEmpty ) )
+		expect( RIGHT( stateEmpty, code ) )
 			.toEqual( { move: { x: 1 } } as StateChange );
 	} );
 } );
 
 describe( '\'<\' LEFT', () => {
 	test( 'change move to left', () => {
-		expect( LEFT( stateEmpty ) )
+		expect( LEFT( stateEmpty, code ) )
 			.toEqual( { move: { x: -1 } } as StateChange );
 	} );
 } );
 
 describe( '\'^\' UP', () => {
 	test( 'change move to up', () => {
-		expect( UP( stateEmpty ) )
+		expect( UP( stateEmpty, code ) )
 			.toEqual( { move: { y: -1 } } as StateChange );
 	} );
 } );
 
 describe( '\'v\' DOWN', () => {
 	test( 'change move to down', () => {
-		expect( DOWN( stateEmpty ) )
+		expect( DOWN( stateEmpty, code ) )
 			.toEqual( { move: { y: 1 } } as StateChange );
 	} );
 } );
 
 describe( '\'$\' POP_AND_DISCARD', () => {
 	test( 'Outputs 0 on empty stack', () => {
-		expect( POP_AND_DISCARD( stateNotEmpty ) )
+		expect( POP_AND_DISCARD( stateNotEmpty, code ) )
 			.toEqual( { newStack: [ 0, 1, 2 ] } as StateChange );
 	} );
 } );
 
 describe( '\'.\' POP_AND_OUTPUT', () => {
 	test( 'Outputs 0 on empty stack', () => {
-		expect( POP_AND_OUTPUT( stateEmpty ) )
+		expect( POP_AND_OUTPUT( stateEmpty, code ) )
 			.toEqual( { newStack: [], output: '0' } as StateChange );
 	} );
 
 	test( 'Pops and outputs last value from stack', () => {
-		expect( POP_AND_OUTPUT( stateNotEmpty ) )
+		expect( POP_AND_OUTPUT( stateNotEmpty, code ) )
 			.toEqual( { newStack: [ 0, 1, 2 ], output: '3' } as StateChange );
 	} );
 } );
 
 describe( '\'_\' CHECK_HORIZONTAL', () => {
 	test( 'Goes right if last value is 0', () => {
-		expect( CHECK_HORIZONTAL( stateEmpty ) )
+		expect( CHECK_HORIZONTAL( stateEmpty, code ) )
 			.toEqual( { newStack: [], move: { x: 1 } } as StateChange );
 	} );
 
 	test( 'Goes left if last value is not 0', () => {
-		expect( CHECK_HORIZONTAL( stateNotEmpty ) )
+		expect( CHECK_HORIZONTAL( stateNotEmpty, code ) )
 			.toEqual( { newStack: [ 0, 1, 2 ], move: { x: -1 } } as StateChange );
 	} );
 } );
 
 describe( '\'|\' CHECK_VERTICAL', () => {
 	test( 'Goes right if last value is 0', () => {
-		expect( CHECK_VERTICAL( stateEmpty ) )
+		expect( CHECK_VERTICAL( stateEmpty, code ) )
 			.toEqual( { newStack: [], move: { y: 1 } } as StateChange );
 	} );
 
 	test( 'Goes left if last value is not 0', () => {
-		expect( CHECK_VERTICAL( stateNotEmpty ) )
+		expect( CHECK_VERTICAL( stateNotEmpty, code ) )
 			.toEqual( { newStack: [ 0, 1, 2 ], move: { y: -1 } } as StateChange );
 	} );
 } );
@@ -124,49 +127,49 @@ describe( '\',\' TO_STRING', () => {
 			stack: [ 0, 1, 2, 97 /* ASCI Char code for "a" */ ],
 		};
 
-		expect( TO_STRING( state ) )
+		expect( TO_STRING( state, code ) )
 			.toEqual( { output: 'a', newStack: [ 0, 1, 2 ] } as StateChange );
 	} );
 } );
 
 describe( '\'+\' PLUS', () => {
 	test( 'Pops last two values and pushes sum to stack', () => {
-		expect( PLUS( stateNotEmpty ) )
+		expect( PLUS( stateNotEmpty, code ) )
 			.toEqual( { newStack: [ 0, 1, 5 ] } as StateChange );
 	} );
 } );
 
 describe( '\'-\' MINUS', () => {
 	test( 'Pops last two values and pushes difference to stack', () => {
-		expect( MINUS( stateNotEmpty ) )
+		expect( MINUS( stateNotEmpty, code ) )
 			.toEqual( { newStack: [ 0, 1, -1 ] } as StateChange );
 	} );
 } );
 
 describe( '\'*\' MULTIPLY', () => {
 	test( 'Pops last two values and pushes product to stack', () => {
-		expect( MULTIPLY( stateNotEmpty ) )
+		expect( MULTIPLY( stateNotEmpty, code ) )
 			.toEqual( { newStack: [ 0, 1, 6 ] } as StateChange );
 	} );
 } );
 
 describe( '\'/\' DEVIDE', () => {
 	test( 'Pops last two values and pushes dividend to stack', () => {
-		expect( DEVIDE( stateNotEmpty ) )
+		expect( DEVIDE( stateNotEmpty, code ) )
 			.toEqual( { newStack: [ 0, 1, 2 / 3 ] } as StateChange );
 	} );
 } );
 
 describe( '\':\' DUPLICATE', () => {
 	test( 'Duplicates the last value on the stack', () => {
-		expect( DUPLICATE( stateNotEmpty ) )
+		expect( DUPLICATE( stateNotEmpty, code ) )
 			.toEqual( { newStack: [ 0, 1, 2, 3, 3 ] } as StateChange );
 	} );
 } );
 
 describe( '\'$\' SWAP', () => {
 	test( 'Swaps last two values on stack', () => {
-		expect( SWAP( stateNotEmpty ) )
+		expect( SWAP( stateNotEmpty, code ) )
 			.toEqual( { newStack: [ 0, 1, 3, 2 ] } as StateChange );
 	} );
 } );
@@ -185,7 +188,7 @@ describe( '\'?\' RANDOM MOVE', () => {
 		const expectedMax = expected * 2;
 
 		while ( i ) {
-			const { move: { x, y } } = RANDOM_MOVE( stateNotEmpty );
+			const { move: { x, y } } = RANDOM_MOVE( stateNotEmpty, code );
 			if ( x === 1 ) { moveEast += 1; }
 			if ( x === -1 ) { moveWest += 1; }
 			if ( y === 1 ) { moveSouth += 1; }
@@ -207,21 +210,21 @@ describe( '\'?\' RANDOM MOVE', () => {
 
 describe( '\'#\' TRAMPOLINE', () => {
 	test( 'Skips next cell', () => {
-		expect( TRAMPOLINE( stateNotEmpty ) )
+		expect( TRAMPOLINE( stateNotEmpty, code ) )
 			.toEqual( { skipNext: true } as StateChange );
 	} );
 } );
 
 describe( '\'"\' STRING_MODE', () => {
 	test( 'Ends the programm', () => {
-		expect( STRING_MODE( stateNotEmpty ) )
+		expect( STRING_MODE( stateNotEmpty, code ) )
 			.toEqual( { startStringMode: true } as StateChange );
 	} );
 } );
 
 describe( '\'@\' END', () => {
 	test( 'Ends the programm', () => {
-		expect( END( stateNotEmpty ) )
+		expect( END( stateNotEmpty, code ) )
 			.toEqual( { isDone: true } as StateChange );
 	} );
 } );

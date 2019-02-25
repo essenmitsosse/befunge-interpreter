@@ -12,7 +12,7 @@ export default ( code: BefungeCodeParsed, state: State ): {
 	const getCurrentStateChange = currentCharacter( code, state );
 	const stateChange: StateChange = state.skipNext
 		? {}
-		: getCurrentStateChange( state );
+		: getCurrentStateChange( state, code );
 
 	const move = stateChange.move ? stateChange.move : state.move;
 	const stack = stateChange.newStack || state.stack;
