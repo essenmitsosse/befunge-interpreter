@@ -166,8 +166,8 @@ describe( '\'?\' RANDOM MOVE', () => {
 		let i = 1000;
 
 		const expected = i * 0.25;
-		const expectedMin = expected * 0.5;
-		const expectedMax = expected * 1.5;
+		const expectedMin = expected * 0.25;
+		const expectedMax = expected * 2;
 
 		while ( i ) {
 			const { move: { x, y } } = RANDOM_MOVE( stateNotEmpty );
