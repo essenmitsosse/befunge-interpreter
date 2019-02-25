@@ -27,7 +27,7 @@ test( 'Factorial (8! = 40320)', () => {
 	] ) ).toEqual( '40320' );
 } );
 
-test.skip( 'Quine', () => {
+test( 'Quine', () => {
 	expect( befunge( '01->1# +# :# 0# g# ,# :# 5# 8# *# 4# +# -# _@' ) ).toEqual( '01->1# +# :# 0# g# ,# :# 5# 8# *# 4# +# -# _@' );
 } );
 
