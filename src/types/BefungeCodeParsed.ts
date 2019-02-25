@@ -1,5 +1,5 @@
 import BefungeFunction from './BefungeFunction';
 
-type BefungeCodeRaw = BefungeFunction[][];
+type BefungeCodeParsed = BefungeFunction[][];
 
-export default BefungeCodeRaw;
+export default BefungeCodeParsed;

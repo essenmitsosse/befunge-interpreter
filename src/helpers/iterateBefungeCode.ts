@@ -21,7 +21,7 @@ export default function* iterateBefungeCode(
 			output?: string
 		} = inStringMode
 			? getStateNextStringMode( codeRaw, stateCurrent )
-			: getStateNext( codeParsed, stateCurrent );
+			: getStateNext( codeParsed, codeRaw, stateCurrent );
 
 		/* eslint-disable prefer-destructuring */
 		isDone = result.isDone;

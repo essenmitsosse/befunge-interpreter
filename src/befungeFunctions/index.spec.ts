@@ -1,7 +1,7 @@
 import befungeFunctions from './index';
 import State from '../types/State';
 import StateChange from '../types/StateChange';
-import BefungeCodeRaw from '../types/BefungeCodeParsed';
+import BefungeCodeRaw from '../types/BefungeCodeRaw';
 
 const {
 	/* eslint-disable quote-props */
