@@ -1,7 +1,6 @@
-export default function <
-Code extends ( any[] | string )[]
-> (
-	code: Code,
-	{ posX, posY }: { posX: number, posY: number } ) {
+export default function < Input > (
+	code: Input[][],
+	{ posX, posY }: { posX: number, posY: number },
+) {
 	return code[ posY ][ posX ];
 }

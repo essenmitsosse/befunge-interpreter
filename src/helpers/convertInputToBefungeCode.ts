@@ -4,4 +4,4 @@ export default ( input: string | string[] ): BefungeCodeRaw => (
 	typeof input === 'string'
 		? input.split( '\n' )
 		: input
-);
+).map( line => line.split( '' ) );
