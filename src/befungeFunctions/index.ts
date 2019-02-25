@@ -2,7 +2,7 @@ import BefungeFunction from '../types/BefungeFunction';
 import pushNumberFunctions from './pushNumberFunctions';
 import popStack from './popStack';
 import getLastStackValue from './getLastStackValue';
-import popStackTwice from './popStackTwice';
+import getPopTwiceOutputFunction from './getPopTwiceOutputFunction';
 
 const befungeFunctions: { [ key: string ]: BefungeFunction } = {
 	...pushNumberFunctions,
@@ -21,30 +21,10 @@ const befungeFunctions: { [ key: string ]: BefungeFunction } = {
 			output: popped.toString(),
 		};
 	},
-	'+': ( { stack } ) => {
-		const { newStack, popped1, popped2 } = popStackTwice( stack );
-		return {
-			newStack: [ ...newStack, popped1 + popped2 ],
-		};
-	},
-	'-': ( { stack } ) => {
-		const { newStack, popped1, popped2 } = popStackTwice( stack );
-		return {
-			newStack: [ ...newStack, popped1 - popped2 ],
-		};
-	},
-	'*': ( { stack } ) => {
-		const { newStack, popped1, popped2 } = popStackTwice( stack );
-		return {
-			newStack: [ ...newStack, popped1 * popped2 ],
-		};
-	},
-	'/': ( { stack } ) => {
-		const { newStack, popped1, popped2 } = popStackTwice( stack );
-		return {
-			newStack: [ ...newStack, popped1 * popped2 ],
-		};
-	},
+	'+': getPopTwiceOutputFunction( ( pop1, pop2 ) => pop1 + pop2 ),
+	'-': getPopTwiceOutputFunction( ( pop1, pop2 ) => pop1 - pop2 ),
+	'*': getPopTwiceOutputFunction( ( pop1, pop2 ) => pop1 * pop2 ),
+	'/': getPopTwiceOutputFunction( ( pop1, pop2 ) => pop1 / pop2 ),
 	':': ( { stack } ) => ( {
 		newStack: [ ...stack, getLastStackValue( stack ) ],
 	} ),
