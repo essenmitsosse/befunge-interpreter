@@ -3,5 +3,7 @@ import befungeFunctions from '../befungeFunctions';
 
 export default ( character: string ): BefungeFunction => (
 	befungeFunctions[ character ]
-	|| befungeFunctions.default
+	|| (
+		() => { throw new Error( `Unknown character encountered: '${ character }'` ); }
+	)
 );
