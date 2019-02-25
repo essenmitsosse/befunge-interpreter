@@ -19,6 +19,7 @@ const {
 	'/': DEVIDE,
 	':': DUPLICATE,
 	'?': RANDOM_MOVE,
+	'@': END,
 	'default': DEFAULT,
 	/* eslint-enable quote-props */
 } = befungeFunctions;
@@ -188,10 +189,9 @@ describe( '\'?\' RANDOM MOVE', () => {
 	} );
 } );
 
-
-describe( '\'default\' DEFAULT', () => {
+describe( '\'@\' END', () => {
 	test( 'Ends the programm', () => {
-		expect( DEFAULT( stateNotEmpty ) )
+		expect( END( stateNotEmpty ) )
 			.toEqual( { isDone: true } as StateChange );
 	} );
 } );
