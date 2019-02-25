@@ -6,6 +6,7 @@ interface State {
 	posY: number;
 	move: Move;
 	stack: Stack,
+	skipNext?: boolean;
 }
 
 export default State;

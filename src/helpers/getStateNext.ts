@@ -1,6 +1,7 @@
 import State from '../types/State';
 import BefungeCodeParsed from '../types/BefungeCodeParsed';
 import currentCharacter from './getCodePosition';
+import StateChange from '../types/StateChange';
 
 export default ( code: BefungeCodeParsed, state: State ): {
 	state: State,
@@ -9,7 +10,9 @@ export default ( code: BefungeCodeParsed, state: State ): {
 	output?: string,
 } => {
 	const getCurrentStateChange = currentCharacter( code, state );
-	const stateChange = getCurrentStateChange( state );
+	const stateChange: StateChange = state.skipNext
+		? {}
+		: getCurrentStateChange( state );
 
 	const move = stateChange.move ? stateChange.move : state.move;
 	const stack = stateChange.newStack || state.stack;
@@ -17,10 +20,11 @@ export default ( code: BefungeCodeParsed, state: State ): {
 	const posY = move.y ? state.posY + move.y : state.posY;
 	const isDone = !!stateChange.isDone;
 	const inStringMode = !!stateChange.startStringMode;
+	const skipNext = !!stateChange.skipNext;
 
 	return {
 		state: {
-			stack, move, posX, posY,
+			stack, move, posX, posY, skipNext,
 		},
 		isDone,
 		inStringMode,

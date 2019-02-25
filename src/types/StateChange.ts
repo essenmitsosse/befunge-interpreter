@@ -7,6 +7,7 @@ export interface StateChange {
 	output?: string;
 	newStack?: Stack;
 	startStringMode?: boolean;
+	skipNext?: boolean;
 }
 
 export default StateChange;

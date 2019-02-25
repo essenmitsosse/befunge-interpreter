@@ -21,6 +21,7 @@ const {
 	':': DUPLICATE,
 	'\\': SWAP,
 	'?': RANDOM_MOVE,
+	'#': TRAMPOLINE,
 	'@': END,
 	'"': STRING_MODE,
 	/* eslint-enable quote-props */
@@ -200,6 +201,14 @@ describe( '\'?\' RANDOM MOVE', () => {
 		expect( moveSouth ).toBeLessThanOrEqual( expectedMax );
 		expect( moveNorth ).toBeGreaterThan( expectedMin );
 		expect( moveNorth ).toBeLessThanOrEqual( expectedMax );
+	} );
+} );
+
+
+describe( '\'#\' TRAMPOLINE', () => {
+	test( 'Skips next cell', () => {
+		expect( TRAMPOLINE( stateNotEmpty ) )
+			.toEqual( { skipNext: true } as StateChange );
 	} );
 } );
 
