@@ -9,6 +9,7 @@ const {
 	'<': LEFT,
 	'^': UP,
 	'v': DOWN,
+	'$': POP_AND_DISCARD,
 	'.': POP_AND_OUTPUT,
 	'_': CHECK_HORIZONTAL,
 	'|': CHECK_VERTICAL,
@@ -68,6 +69,13 @@ describe( '\'v\' DOWN', () => {
 	test( 'change move to down', () => {
 		expect( DOWN( stateEmpty ) )
 			.toEqual( { move: { y: 1 } } as StateChange );
+	} );
+} );
+
+describe( '\'$\' POP_AND_DISCARD', () => {
+	test( 'Outputs 0 on empty stack', () => {
+		expect( POP_AND_DISCARD( stateNotEmpty ) )
+			.toEqual( { newStack: [ 0, 1, 2 ] } as StateChange );
 	} );
 } );
 

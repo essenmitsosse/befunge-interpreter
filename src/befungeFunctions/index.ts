@@ -13,6 +13,7 @@ const befungeFunctions: { [ key: string ]: BefungeFunction } = {
 	'<': () => ( { move: { x: -1 } } ),
 	'^': () => ( { move: { y: -1 } } ),
 	'v': () => ( { move: { y: 1 } } ),
+	'$': getPopFunction( popped => ( {} ) ),
 	'.': getPopFunction( popped => ( { output: popped.toString() } ) ),
 	'_': getPopFunction( popped => ( { move: { x: popped === 0 ? 1 : -1 } } ) ),
 	'|': getPopFunction( popped => ( { move: { y: popped === 0 ? 1 : -1 } } ) ),
