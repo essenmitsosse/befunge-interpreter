@@ -23,6 +23,7 @@ const {
 	'\\': SWAP,
 	'?': RANDOM_MOVE,
 	'#': TRAMPOLINE,
+	'g': GET,
 	'@': END,
 	'"': STRING_MODE,
 	/* eslint-enable quote-props */
@@ -219,6 +220,21 @@ describe( '\'"\' STRING_MODE', () => {
 	test( 'Ends the programm', () => {
 		expect( STRING_MODE( stateNotEmpty, code ) )
 			.toEqual( { startStringMode: true } as StateChange );
+	} );
+} );
+
+describe( '\'@\' GET', () => {
+	test( 'Gets value from code at position of the last two stack values and pushes ASCII value', () => {
+		expect( GET(
+			{
+				...stateEmpty,
+				stack: [ 0, 1 ],
+			},
+			[
+				[ 'a', 'b' ],
+				[ 'c', 'd' ],
+			],
+		) ).toEqual( { newStack: [ 99 /* Charcode for c at 0, 1 */ ] } as StateChange );
 	} );
 } );
 

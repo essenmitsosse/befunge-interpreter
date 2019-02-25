@@ -35,6 +35,12 @@ const befungeFunctions: { [ key: string ]: BefungeFunction } = {
 	} ),
 	'#': () => ( { skipNext: true } ),
 	'"': () => ( { startStringMode: true } ),
+	'g': ( { stack }, code ) => {
+		const { newStack, popped1, popped2 } = popStackTwice( stack );
+		return {
+			newStack: [ ...newStack, code[ popped1 ][ popped2 ].charCodeAt( 0 ) ],
+		};
+	},
 	'@': () => ( { isDone: true } ),
 };
 
