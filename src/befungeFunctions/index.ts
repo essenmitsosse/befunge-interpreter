@@ -15,6 +15,7 @@ const befungeFunctions: { [ key: string ]: BefungeFunction } = {
 	'v': () => ( { move: { y: 1 } } ),
 	'.': getPopFunction( popped => ( { output: popped.toString() } ) ),
 	'_': getPopFunction( popped => ( { move: { x: popped === 0 ? 1 : -1 } } ) ),
+	'|': getPopFunction( popped => ( { move: { y: popped === 0 ? 1 : -1 } } ) ),
 	'+': getPopTwiceOutputFunction( ( pop1, pop2 ) => pop1 + pop2 ),
 	'-': getPopTwiceOutputFunction( ( pop1, pop2 ) => pop2 - pop1 ),
 	'*': getPopTwiceOutputFunction( ( pop1, pop2 ) => pop1 * pop2 ),

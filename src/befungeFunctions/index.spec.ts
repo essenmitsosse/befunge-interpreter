@@ -11,6 +11,7 @@ const {
 	'v': DOWN,
 	'.': POP_AND_OUTPUT,
 	'_': CHECK_HORIZONTAL,
+	'|': CHECK_VERTICAL,
 	'+': PLUS,
 	'-': MINUS,
 	'*': MULTIPLY,
@@ -30,7 +31,7 @@ const stateEmpty: State = {
 
 const stateNotEmpty: State = {
 	...stateEmpty,
-	stack: [ 0, 1, 2, 3 ],
+	stack: [ 0, 1, 2, 3 ], // No Magic numbers, tests expect those values!
 };
 
 describe( '\' \' SPACE', () => {
@@ -91,6 +92,18 @@ describe( '\'_\' CHECK_HORIZONTAL', () => {
 	test( 'Goes left if last value is not 0', () => {
 		expect( CHECK_HORIZONTAL( stateNotEmpty ) )
 			.toEqual( { newStack: [ 0, 1, 2 ], move: { x: -1 } } as StateChange );
+	} );
+} );
+
+describe( '\'_\' CHECK_VERTICAL', () => {
+	test( 'Goes right if last value is 0', () => {
+		expect( CHECK_VERTICAL( stateEmpty ) )
+			.toEqual( { newStack: [], move: { y: 1 } } as StateChange );
+	} );
+
+	test( 'Goes left if last value is not 0', () => {
+		expect( CHECK_VERTICAL( stateNotEmpty ) )
+			.toEqual( { newStack: [ 0, 1, 2 ], move: { y: -1 } } as StateChange );
 	} );
 } );
 
