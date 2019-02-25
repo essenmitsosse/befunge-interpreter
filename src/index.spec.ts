@@ -12,7 +12,7 @@ test( 'Example Programm with string Array input', () => {
 	] ) ).toEqual( '123456789' );
 } );
 
-test.skip( 'Hello World', () => {
+test.only( 'Hello World', () => {
 	expect( befunge( [
 		'>25*"!dlroW olleH":v',
 		'                v:,_@',
