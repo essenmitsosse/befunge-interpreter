@@ -113,11 +113,11 @@ describe( '\',\' TO_STRING', () => {
 	test( 'Outputs the ASCII character represented by the popped integer', () => {
 		const state: State = {
 			...stateEmpty,
-			stack: [ 97 /* ASCI Char code for "a" */ ],
+			stack: [ 0, 1, 2, 97 /* ASCI Char code for "a" */ ],
 		};
 
 		expect( TO_STRING( state ) )
-			.toEqual( { output: 'a' } as StateChange );
+			.toEqual( { output: 'a', newStack: [ 0, 1, 2 ] } as StateChange );
 	} );
 } );
 
