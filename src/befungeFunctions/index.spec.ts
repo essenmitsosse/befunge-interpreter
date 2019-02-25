@@ -19,6 +19,7 @@ const {
 	'*': MULTIPLY,
 	'/': DEVIDE,
 	':': DUPLICATE,
+	'\\': SWAP,
 	'?': RANDOM_MOVE,
 	'@': END,
 	'"': STRING_MODE,
@@ -159,6 +160,13 @@ describe( '\':\' DUPLICATE', () => {
 	test( 'Duplicates the last value on the stack', () => {
 		expect( DUPLICATE( stateNotEmpty ) )
 			.toEqual( { newStack: [ 0, 1, 2, 3, 3 ] } as StateChange );
+	} );
+} );
+
+describe( '\'$\' SWAP', () => {
+	test( 'Swaps last two values on stack', () => {
+		expect( SWAP( stateNotEmpty ) )
+			.toEqual( { newStack: [ 0, 1, 3, 2 ] } as StateChange );
 	} );
 } );
 

@@ -3,6 +3,7 @@ import pushNumberFunctions from './pushNumberFunctions';
 import getLastStackValue from './getLastStackValue';
 import getPopTwiceOutputFunction from './getPopTwiceOutputFunction';
 import getPopFunction from './getPopFunction';
+import popStackTwice from './popStackTwice';
 
 const befungeFunctions: { [ key: string ]: BefungeFunction } = {
 	...pushNumberFunctions,
@@ -22,6 +23,12 @@ const befungeFunctions: { [ key: string ]: BefungeFunction } = {
 	'-': getPopTwiceOutputFunction( ( pop1, pop2 ) => pop2 - pop1 ),
 	'*': getPopTwiceOutputFunction( ( pop1, pop2 ) => pop1 * pop2 ),
 	'/': getPopTwiceOutputFunction( ( pop1, pop2 ) => pop2 / pop1 ),
+	'\\': ( { stack } ) => {
+		const { newStack, popped1, popped2 } = popStackTwice( stack );
+		return {
+			newStack: [ ...newStack, popped1, popped2 ],
+		};
+	},
 	':': ( { stack } ) => ( { newStack: [ ...stack, getLastStackValue( stack ) ] } ),
 	'?': () => ( {
 		move: { [ Math.random() > 0.5 ? 'x' : 'y' ]: Math.random() > 0.5 ? -1 : 1 },
