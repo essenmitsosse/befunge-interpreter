@@ -12,6 +12,7 @@ const {
 	'.': POP_AND_OUTPUT,
 	'_': CHECK_HORIZONTAL,
 	'|': CHECK_VERTICAL,
+	',': TO_STRING,
 	'+': PLUS,
 	'-': MINUS,
 	'*': MULTIPLY,
@@ -95,7 +96,7 @@ describe( '\'_\' CHECK_HORIZONTAL', () => {
 	} );
 } );
 
-describe( '\'_\' CHECK_VERTICAL', () => {
+describe( '\'|\' CHECK_VERTICAL', () => {
 	test( 'Goes right if last value is 0', () => {
 		expect( CHECK_VERTICAL( stateEmpty ) )
 			.toEqual( { newStack: [], move: { y: 1 } } as StateChange );
@@ -104,6 +105,18 @@ describe( '\'_\' CHECK_VERTICAL', () => {
 	test( 'Goes left if last value is not 0', () => {
 		expect( CHECK_VERTICAL( stateNotEmpty ) )
 			.toEqual( { newStack: [ 0, 1, 2 ], move: { y: -1 } } as StateChange );
+	} );
+} );
+
+describe( '\',\' TO_STRING', () => {
+	test( 'Outputs the ASCII character represented by the popped integer', () => {
+		const state: State = {
+			...stateEmpty,
+			stack: [ 97 /* ASCI Char code for "a" */ ],
+		};
+
+		expect( TO_STRING( state ) )
+			.toEqual( { output: 'a' } as StateChange );
 	} );
 } );
 
