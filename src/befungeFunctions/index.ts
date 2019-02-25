@@ -1,10 +1,10 @@
 import BefungeFunction from '../types/BefungeFunction';
-import getNumberPrintingFunctions from './getNumberPrintingFunctions';
+import pushNumberFunctions from './pushNumberFunctions';
 import popStack from './popStack';
 import getLastStackValue from './getLastStackValue';
 
 const befungeFunctions: { [ key: string ]: BefungeFunction } = {
-	...getNumberPrintingFunctions,
+	...pushNumberFunctions,
 
 	/* eslint-disable quote-props */
 	' ': () => ( {} ),

@@ -1,7 +1,7 @@
 import BefungeFunction from '../types/BefungeFunction';
 import getPrintFunction from './getPrintFunction';
 
-const getNumberPrintingFunctions: {
+const pushNumberFunctions: {
 	[key: string]: BefungeFunction;
 } = new Array( 10 )
 	.fill( null )
@@ -13,4 +13,4 @@ const getNumberPrintingFunctions: {
 		{},
 	);
 
-export default getNumberPrintingFunctions;
+export default pushNumberFunctions;
