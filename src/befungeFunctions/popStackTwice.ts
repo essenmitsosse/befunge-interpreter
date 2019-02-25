@@ -4,15 +4,15 @@ import StackValue from '../types/StackValue';
 
 export default ( stack: Stack ): {
 	newStack: Stack,
-	poppedFirst: StackValue,
-	poppedSecond: StackValue,
+	popped1: StackValue,
+	popped2: StackValue,
 } => {
 	const newStack = stack.slice( 0, -1 );
-	const [ poppedSecond, poppedFirst ] = getLastStackValues( stack, 2 );
+	const [ popped2, popped1 ] = getLastStackValues( stack, 2 );
 
 	return {
 		newStack,
-		poppedFirst,
-		poppedSecond,
+		popped1,
+		popped2,
 	};
 };

@@ -22,27 +22,27 @@ const befungeFunctions: { [ key: string ]: BefungeFunction } = {
 		};
 	},
 	'+': ( { stack } ) => {
-		const { newStack, poppedFirst, poppedSecond } = popStackTwice( stack );
+		const { newStack, popped1, popped2 } = popStackTwice( stack );
 		return {
-			newStack: [ ...newStack, poppedFirst + poppedSecond ],
+			newStack: [ ...newStack, popped1 + popped2 ],
 		};
 	},
 	'-': ( { stack } ) => {
-		const { newStack, poppedFirst, poppedSecond } = popStackTwice( stack );
+		const { newStack, popped1, popped2 } = popStackTwice( stack );
 		return {
-			newStack: [ ...newStack, poppedFirst - poppedSecond ],
+			newStack: [ ...newStack, popped1 - popped2 ],
 		};
 	},
 	'*': ( { stack } ) => {
-		const { newStack, poppedFirst, poppedSecond } = popStackTwice( stack );
+		const { newStack, popped1, popped2 } = popStackTwice( stack );
 		return {
-			newStack: [ ...newStack, poppedFirst * poppedSecond ],
+			newStack: [ ...newStack, popped1 * popped2 ],
 		};
 	},
 	'/': ( { stack } ) => {
-		const { newStack, poppedFirst, poppedSecond } = popStackTwice( stack );
+		const { newStack, popped1, popped2 } = popStackTwice( stack );
 		return {
-			newStack: [ ...newStack, poppedFirst * poppedSecond ],
+			newStack: [ ...newStack, popped1 * popped2 ],
 		};
 	},
 	':': ( { stack } ) => ( {
