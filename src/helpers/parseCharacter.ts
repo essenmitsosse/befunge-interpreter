@@ -4,6 +4,12 @@ import befungeFunctions from '../befungeFunctions';
 export default ( character: string ): BefungeFunction => (
 	befungeFunctions[ character ]
 	|| (
-		() => { throw new Error( `Unknown character encountered: '${ character }'` ); }
+		( state ) => {
+			throw new Error( `
+PARSING ERROR\n
+unknown character encountered: '${ character }',
+current state:                 ${ JSON.stringify( state ) }
+`			);
+		}
 	)
 );
