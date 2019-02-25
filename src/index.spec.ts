@@ -20,7 +20,7 @@ test( 'Hello World', () => {
 	] ) ).toEqual( 'Hello World!\n' );
 } );
 
-test.skip( 'Factorial (8! = 40320)', () => {
+test( 'Factorial (8! = 40320)', () => {
 	expect( befunge( [
 		'08>:1-:v v *_$.@ ',
 		'  ^    _$>\\:^',
