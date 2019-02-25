@@ -25,6 +25,7 @@ const befungeFunctions: { [ key: string ]: BefungeFunction } = {
 	'?': () => ( {
 		move: { [ Math.random() > 0.5 ? 'x' : 'y' ]: Math.random() > 0.5 ? -1 : 1 },
 	} ),
+	'"': () => ( { startStringMode: true } ),
 	'@': () => ( { isDone: true } ),
 };
 

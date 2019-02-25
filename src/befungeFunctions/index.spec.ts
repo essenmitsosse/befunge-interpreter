@@ -20,7 +20,7 @@ const {
 	':': DUPLICATE,
 	'?': RANDOM_MOVE,
 	'@': END,
-	'default': DEFAULT,
+	'"': STRING_MODE,
 	/* eslint-enable quote-props */
 } = befungeFunctions;
 
@@ -186,6 +186,13 @@ describe( '\'?\' RANDOM MOVE', () => {
 		expect( moveSouth ).toBeLessThanOrEqual( expectedMax );
 		expect( moveNorth ).toBeGreaterThan( expectedMin );
 		expect( moveNorth ).toBeLessThanOrEqual( expectedMax );
+	} );
+} );
+
+describe( '\'"\' STRING_MODE', () => {
+	test( 'Ends the programm', () => {
+		expect( STRING_MODE( stateNotEmpty ) )
+			.toEqual( { startStringMode: true } as StateChange );
 	} );
 } );
 
