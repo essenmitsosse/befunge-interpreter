@@ -6,6 +6,6 @@ import parseCode from './helpers/parseCode';
 export default ( input: string | string[] ) => {
 	const codeRaw = convertInputToBefungeCode( input );
 	const codeParsed = parseCode( codeRaw );
-	const list = [ ...iterateBefungeCode( codeParsed, stateBase ) ];
+	const list = [ ...iterateBefungeCode( codeRaw, codeParsed, stateBase ) ];
 	return list.join( '' );
 };
