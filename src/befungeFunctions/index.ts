@@ -29,6 +29,7 @@ const befungeFunctions: { [ key: string ]: BefungeFunction } = {
 			newStack: [ ...newStack, popped1, popped2 ],
 		};
 	},
+	'!': getPopFunction( ( popped, newStack ) => ( { newStack: [ ...newStack, popped === 0 ? 1 : 0 ] } ) ),
 	':': ( { stack } ) => ( { newStack: [ ...stack, getLastStackValue( stack ) ] } ),
 	'?': () => ( {
 		move: { [ Math.random() > 0.5 ? 'x' : 'y' ]: Math.random() > 0.5 ? -1 : 1 },

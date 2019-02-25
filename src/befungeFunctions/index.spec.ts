@@ -20,6 +20,7 @@ const {
 	'*': MULTIPLY,
 	'/': DEVIDE,
 	':': DUPLICATE,
+	'!': NOT,
 	'\\': SWAP,
 	'?': RANDOM_MOVE,
 	'#': TRAMPOLINE,
@@ -165,6 +166,22 @@ describe( '\':\' DUPLICATE', () => {
 	test( 'Duplicates the last value on the stack', () => {
 		expect( DUPLICATE( stateNotEmpty, code ) )
 			.toEqual( { newStack: [ 0, 1, 2, 3, 3 ] } as StateChange );
+	} );
+} );
+
+describe( '\'$\' NOT', () => {
+	test( 'Pushes 1 if value popped value is 0', () => {
+		expect( NOT(
+			{ ...stateEmpty, stack: [ 0 ] },
+			code,
+		) ).toEqual( { newStack: [ 1 ] } as StateChange );
+	} );
+
+	test( 'Pushes 0 if value popped value is not 0', () => {
+		expect( NOT(
+			{ ...stateEmpty, stack: [ 1 ] },
+			code,
+		) ).toEqual( { newStack: [ 0 ] } as StateChange );
 	} );
 } );
 
