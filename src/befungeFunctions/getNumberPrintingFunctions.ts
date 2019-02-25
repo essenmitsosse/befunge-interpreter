@@ -1,6 +1,5 @@
 import BefungeFunction from '../types/BefungeFunction';
 import getPrintFunction from './getPrintFunction';
-import StackValue from '../types/StackValue';
 
 const getNumberPrintingFunctions: {
 	[key: string]: BefungeFunction;
@@ -9,7 +8,7 @@ const getNumberPrintingFunctions: {
 	.reduce(
 		( map, _, index ) => ( {
 			...map,
-			[ index ]: getPrintFunction( index as StackValue ),
+			[ index ]: getPrintFunction( index ),
 		} ),
 		{},
 	);
