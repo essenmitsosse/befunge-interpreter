@@ -76,9 +76,7 @@ describe( '\'.\' POP_AND_OUTPUT', () => {
 		expect( POP_AND_OUTPUT( stateEmpty ) )
 			.toEqual( { newStack: [], output: '0' } as StateChange );
 	} );
-} );
 
-describe( '\'.\' POP_AND_OUTPUT', () => {
 	test( 'Pops and outputs last value from stack', () => {
 		expect( POP_AND_OUTPUT( stateNotEmpty ) )
 			.toEqual( { newStack: [ 0, 1, 2 ], output: '3' } as StateChange );
