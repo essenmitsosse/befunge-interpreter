@@ -59,6 +59,6 @@ test( 'Random direction', () => {
 		i += 1;
 	}
 
-	expect( amountOf1s ).toBeGreaterThanOrEqual( 200 * 0.45 );
-	expect( amountOf1s ).toBeLessThanOrEqual( 200 * 0.55 );
+	expect( amountOf1s ).toBeGreaterThanOrEqual( 200 * 0.25 );
+	expect( amountOf1s ).toBeLessThanOrEqual( 200 * 0.75 );
 } );
