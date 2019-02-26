@@ -4,12 +4,12 @@ import stateBase from './helpers/stateBase';
 import parseCode from './helpers/parseCode';
 
 export default ( input: string | string[] ) => {
-	const codeRaw = convertInputToBefungeCode( input );
-	const codeParsed = parseCode( codeRaw );
+	const codeChars = convertInputToBefungeCode( input );
+	const codeFuncs = parseCode( codeChars );
 	const stateInitial = {
 		...stateBase,
-		codeRaw,
-		codeParsed,
+		codeChars,
+		codeFuncs,
 	};
 	const list = [ ...iterateBefungeCode( stateInitial ) ];
 	return list.join( '' );

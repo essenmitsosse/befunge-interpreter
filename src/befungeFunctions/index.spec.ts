@@ -1,7 +1,7 @@
 import befungeFunctions from './index';
 import State from '../types/State';
 import StateChange from '../types/StateChange';
-import BefungeCodeRaw from '../types/BefungeCodeRaw';
+import BefungeCodeChars from '../types/BefungeCodeChars';
 
 const {
 	/* eslint-disable quote-props */
@@ -37,11 +37,11 @@ const stateEmpty: State = {
 	stack: [],
 	isStringMode: false,
 	skipNext: false,
-	codeParsed: [],
-	codeRaw: [],
+	codeFuncs: [],
+	codeChars: [],
 };
 
-const code: BefungeCodeRaw = [];
+const code: BefungeCodeChars = [];
 
 const stateNotEmpty: State = {
 	...stateEmpty,
@@ -248,7 +248,7 @@ describe( '\'@\' GET', () => {
 			{
 				...stateEmpty,
 				stack: [ 0, 1 ],
-				codeRaw: [
+				codeChars: [
 					[ 'a', 'b' ],
 					[ 'c', 'd' ],
 				],

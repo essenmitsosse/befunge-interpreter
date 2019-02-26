@@ -1,6 +1,6 @@
-import BefungeCodeRaw from '../types/BefungeCodeRaw';
-import BefungeCodeParsed from '../types/BefungeCodeParsed';
+import BefungeCodeChars from '../types/BefungeCodeChars';
+import BefungeCodeFuncs from '../types/BefungeCodeFuncs';
 import parseCharacter from './parseCharacter';
 
 const parseLine = ( codeLine: string[] ) => codeLine.map( parseCharacter );
-export default ( codeRaw: BefungeCodeRaw ): BefungeCodeParsed => codeRaw.map( parseLine );
+export default ( codeChars: BefungeCodeChars ): BefungeCodeFuncs => codeChars.map( parseLine );

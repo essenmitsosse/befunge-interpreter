@@ -1,7 +1,7 @@
 import Move from './Move';
 import Stack from './Stack';
-import BefungeCodeParsed from './BefungeCodeParsed';
-import BefungeCodeRaw from './BefungeCodeRaw';
+import BefungeCodeFuncs from './BefungeCodeFuncs';
+import BefungeCodeChars from './BefungeCodeChars';
 
 interface State {
 	posX: number;
@@ -10,8 +10,8 @@ interface State {
 	stack: Stack,
 	skipNext: boolean;
 	isStringMode: boolean;
-	codeParsed: BefungeCodeParsed;
-	codeRaw: BefungeCodeRaw;
+	codeFuncs: BefungeCodeFuncs;
+	codeChars: BefungeCodeChars;
 }
 
 export default State;

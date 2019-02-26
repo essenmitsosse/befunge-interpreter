@@ -7,8 +7,8 @@ export default ( state: State, stateChange: StateChange ): State => {
 	return {
 		move,
 		stack: stateChange.stack || state.stack,
-		codeParsed: stateChange.codeParsed || state.codeParsed,
-		codeRaw: stateChange.codeRaw || state.codeRaw,
+		codeFuncs: stateChange.codeFuncs || state.codeFuncs,
+		codeChars: stateChange.codeChars || state.codeChars,
 		posX: state.posX + ( move.x || 0 ),
 		posY: state.posY + ( move.y || 0 ),
 		skipNext: !!stateChange.skipNext,
