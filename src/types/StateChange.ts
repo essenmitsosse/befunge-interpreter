@@ -1,5 +1,7 @@
 import Move from './Move';
 import Stack from './Stack';
+import BefungeCodeRaw from './BefungeCodeRaw';
+import BefungeCodeParsed from './BefungeCodeParsed';
 
 export interface StateChange {
 	move?: Move;
@@ -8,6 +10,8 @@ export interface StateChange {
 	stack?: Stack;
 	isStringMode?: boolean;
 	skipNext?: boolean;
+	codeRaw?: BefungeCodeRaw;
+	codeParsed?: BefungeCodeParsed;
 }
 
 export default StateChange;

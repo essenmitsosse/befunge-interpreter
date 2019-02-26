@@ -36,10 +36,10 @@ const befungeFunctions: { [ key: string ]: BefungeFunction } = {
 	} ),
 	'#': () => ( { skipNext: true } ),
 	'"': () => ( { isStringMode: true } ),
-	'g': ( { stack }, code ) => {
+	'g': ( { stack, codeRaw } ) => {
 		const { newStack, popped1, popped2 } = popStackTwice( stack );
 		return {
-			stack: [ ...newStack, code[ popped1 ][ popped2 ].charCodeAt( 0 ) ],
+			stack: [ ...newStack, codeRaw[ popped1 ][ popped2 ].charCodeAt( 0 ) ],
 		};
 	},
 	'@': () => ( { isDone: true } ),

@@ -1,10 +1,9 @@
 import State from '../types/State';
-import BefungeCodeRaw from '../types/BefungeCodeRaw';
 import getFromCodeAtPosition from './getFromCodeAtPosition';
 import StateChange from '../types/StateChange';
 
-export default ( codeRaw: BefungeCodeRaw, state: State ): StateChange => {
-	const currentCharacter = getFromCodeAtPosition( codeRaw, state.posX, state.posY );
+export default ( state: State ): StateChange => {
+	const currentCharacter = getFromCodeAtPosition( state.codeRaw, state.posX, state.posY );
 
 	const { move } = state;
 	const isStringMode = currentCharacter !== '"';
