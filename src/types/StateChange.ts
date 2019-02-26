@@ -5,8 +5,8 @@ export interface StateChange {
 	move?: Move;
 	isDone?: boolean;
 	output?: string;
-	newStack?: Stack;
-	startStringMode?: boolean;
+	stack?: Stack;
+	isStringMode?: boolean;
 	skipNext?: boolean;
 }
 

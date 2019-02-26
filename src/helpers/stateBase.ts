@@ -5,6 +5,8 @@ const stateBase: State = {
 	posY: 0,
 	move: { x: 1 },
 	stack: [],
+	isStringMode: false,
+	skipNext: false,
 };
 
 export default stateBase;

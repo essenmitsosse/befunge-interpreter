@@ -8,7 +8,7 @@ export default (
 	( { stack } ) => {
 		const { newStack, popped1, popped2 } = popStackTwice( stack );
 		return {
-			newStack: [ ...newStack, callback( popped1, popped2 ) ],
+			stack: [ ...newStack, callback( popped1, popped2 ) ],
 		};
 	}
 );

@@ -35,6 +35,8 @@ const stateEmpty: State = {
 	posX: 0,
 	posY: 0,
 	stack: [],
+	isStringMode: false,
+	skipNext: false,
 };
 
 const code: BefungeCodeRaw = [];
@@ -82,43 +84,43 @@ describe( '\'v\' DOWN', () => {
 describe( '\'$\' POP_AND_DISCARD', () => {
 	test( 'Outputs 0 on empty stack', () => {
 		expect( POP_AND_DISCARD( stateNotEmpty, code ) )
-			.toEqual( { newStack: [ 0, 1, 2 ] } as StateChange );
+			.toEqual( { stack: [ 0, 1, 2 ] } as StateChange );
 	} );
 } );
 
 describe( '\'.\' POP_AND_OUTPUT', () => {
 	test( 'Outputs 0 on empty stack', () => {
 		expect( POP_AND_OUTPUT( stateEmpty, code ) )
-			.toEqual( { newStack: [], output: '0' } as StateChange );
+			.toEqual( { stack: [], output: '0' } as StateChange );
 	} );
 
 	test( 'Pops and outputs last value from stack', () => {
 		expect( POP_AND_OUTPUT( stateNotEmpty, code ) )
-			.toEqual( { newStack: [ 0, 1, 2 ], output: '3' } as StateChange );
+			.toEqual( { stack: [ 0, 1, 2 ], output: '3' } as StateChange );
 	} );
 } );
 
 describe( '\'_\' CHECK_HORIZONTAL', () => {
 	test( 'Goes right if last value is 0', () => {
 		expect( CHECK_HORIZONTAL( stateEmpty, code ) )
-			.toEqual( { newStack: [], move: { x: 1 } } as StateChange );
+			.toEqual( { stack: [], move: { x: 1 } } as StateChange );
 	} );
 
 	test( 'Goes left if last value is not 0', () => {
 		expect( CHECK_HORIZONTAL( stateNotEmpty, code ) )
-			.toEqual( { newStack: [ 0, 1, 2 ], move: { x: -1 } } as StateChange );
+			.toEqual( { stack: [ 0, 1, 2 ], move: { x: -1 } } as StateChange );
 	} );
 } );
 
 describe( '\'|\' CHECK_VERTICAL', () => {
 	test( 'Goes right if last value is 0', () => {
 		expect( CHECK_VERTICAL( stateEmpty, code ) )
-			.toEqual( { newStack: [], move: { y: 1 } } as StateChange );
+			.toEqual( { stack: [], move: { y: 1 } } as StateChange );
 	} );
 
 	test( 'Goes left if last value is not 0', () => {
 		expect( CHECK_VERTICAL( stateNotEmpty, code ) )
-			.toEqual( { newStack: [ 0, 1, 2 ], move: { y: -1 } } as StateChange );
+			.toEqual( { stack: [ 0, 1, 2 ], move: { y: -1 } } as StateChange );
 	} );
 } );
 
@@ -130,42 +132,42 @@ describe( '\',\' TO_STRING', () => {
 		};
 
 		expect( TO_STRING( state, code ) )
-			.toEqual( { output: 'a', newStack: [ 0, 1, 2 ] } as StateChange );
+			.toEqual( { output: 'a', stack: [ 0, 1, 2 ] } as StateChange );
 	} );
 } );
 
 describe( '\'+\' PLUS', () => {
 	test( 'Pops last two values and pushes sum to stack', () => {
 		expect( PLUS( stateNotEmpty, code ) )
-			.toEqual( { newStack: [ 0, 1, 5 ] } as StateChange );
+			.toEqual( { stack: [ 0, 1, 5 ] } as StateChange );
 	} );
 } );
 
 describe( '\'-\' MINUS', () => {
 	test( 'Pops last two values and pushes difference to stack', () => {
 		expect( MINUS( stateNotEmpty, code ) )
-			.toEqual( { newStack: [ 0, 1, -1 ] } as StateChange );
+			.toEqual( { stack: [ 0, 1, -1 ] } as StateChange );
 	} );
 } );
 
 describe( '\'*\' MULTIPLY', () => {
 	test( 'Pops last two values and pushes product to stack', () => {
 		expect( MULTIPLY( stateNotEmpty, code ) )
-			.toEqual( { newStack: [ 0, 1, 6 ] } as StateChange );
+			.toEqual( { stack: [ 0, 1, 6 ] } as StateChange );
 	} );
 } );
 
 describe( '\'/\' DEVIDE', () => {
 	test( 'Pops last two values and pushes dividend to stack', () => {
 		expect( DEVIDE( stateNotEmpty, code ) )
-			.toEqual( { newStack: [ 0, 1, 2 / 3 ] } as StateChange );
+			.toEqual( { stack: [ 0, 1, 2 / 3 ] } as StateChange );
 	} );
 } );
 
 describe( '\':\' DUPLICATE', () => {
 	test( 'Duplicates the last value on the stack', () => {
 		expect( DUPLICATE( stateNotEmpty, code ) )
-			.toEqual( { newStack: [ 0, 1, 2, 3, 3 ] } as StateChange );
+			.toEqual( { stack: [ 0, 1, 2, 3, 3 ] } as StateChange );
 	} );
 } );
 
@@ -174,21 +176,21 @@ describe( '\'$\' NOT', () => {
 		expect( NOT(
 			{ ...stateEmpty, stack: [ 0 ] },
 			code,
-		) ).toEqual( { newStack: [ 1 ] } as StateChange );
+		) ).toEqual( { stack: [ 1 ] } as StateChange );
 	} );
 
 	test( 'Pushes 0 if value popped value is not 0', () => {
 		expect( NOT(
 			{ ...stateEmpty, stack: [ 1 ] },
 			code,
-		) ).toEqual( { newStack: [ 0 ] } as StateChange );
+		) ).toEqual( { stack: [ 0 ] } as StateChange );
 	} );
 } );
 
 describe( '\'$\' SWAP', () => {
 	test( 'Swaps last two values on stack', () => {
 		expect( SWAP( stateNotEmpty, code ) )
-			.toEqual( { newStack: [ 0, 1, 3, 2 ] } as StateChange );
+			.toEqual( { stack: [ 0, 1, 3, 2 ] } as StateChange );
 	} );
 } );
 
@@ -236,7 +238,7 @@ describe( '\'#\' TRAMPOLINE', () => {
 describe( '\'"\' STRING_MODE', () => {
 	test( 'Ends the programm', () => {
 		expect( STRING_MODE( stateNotEmpty, code ) )
-			.toEqual( { startStringMode: true } as StateChange );
+			.toEqual( { isStringMode: true } as StateChange );
 	} );
 } );
 
@@ -251,7 +253,7 @@ describe( '\'@\' GET', () => {
 				[ 'a', 'b' ],
 				[ 'c', 'd' ],
 			],
-		) ).toEqual( { newStack: [ 99 /* Charcode for c at 0, 1 */ ] } as StateChange );
+		) ).toEqual( { stack: [ 99 /* Charcode for c at 0, 1 */ ] } as StateChange );
 	} );
 } );
 

@@ -26,20 +26,20 @@ const befungeFunctions: { [ key: string ]: BefungeFunction } = {
 	'\\': ( { stack } ) => {
 		const { newStack, popped1, popped2 } = popStackTwice( stack );
 		return {
-			newStack: [ ...newStack, popped1, popped2 ],
+			stack: [ ...newStack, popped1, popped2 ],
 		};
 	},
-	'!': getPopFunction( ( popped, newStack ) => ( { newStack: [ ...newStack, popped === 0 ? 1 : 0 ] } ) ),
-	':': ( { stack } ) => ( { newStack: [ ...stack, getLastStackValue( stack ) ] } ),
+	'!': getPopFunction( ( popped, newStack ) => ( { stack: [ ...newStack, popped === 0 ? 1 : 0 ] } ) ),
+	':': ( { stack } ) => ( { stack: [ ...stack, getLastStackValue( stack ) ] } ),
 	'?': () => ( {
 		move: { [ Math.random() > 0.5 ? 'x' : 'y' ]: Math.random() > 0.5 ? -1 : 1 },
 	} ),
 	'#': () => ( { skipNext: true } ),
-	'"': () => ( { startStringMode: true } ),
+	'"': () => ( { isStringMode: true } ),
 	'g': ( { stack }, code ) => {
 		const { newStack, popped1, popped2 } = popStackTwice( stack );
 		return {
-			newStack: [ ...newStack, code[ popped1 ][ popped2 ].charCodeAt( 0 ) ],
+			stack: [ ...newStack, code[ popped1 ][ popped2 ].charCodeAt( 0 ) ],
 		};
 	},
 	'@': () => ( { isDone: true } ),

@@ -10,7 +10,7 @@ export default (
 	( { stack } ) => {
 		const { newStack, popped } = popStack( stack );
 		return {
-			newStack: [ ...newStack ],
+			stack: [ ...newStack ],
 			...callback( popped, newStack ),
 		};
 	}
