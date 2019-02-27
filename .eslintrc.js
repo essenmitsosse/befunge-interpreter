@@ -12,6 +12,8 @@ module.exports = {
 		'computed-property-spacing': [ 2, 'always' ],
 		'no-undef': 0,
 		'no-unused-vars': 0,
+		'implicit-arrow-linebreak': 0,
+		'operator-linebreak': 0,
 	},
 	"settings": {
 		"import/resolver": {
