@@ -1,55 +1,57 @@
-const otherwiseContext = < Input, Result >(
-	contextBefore: (
-		input: Input,
-		transform: ( input: Input ) => Result
-	) => Result,
-) => (
-		transform: ( input: Input ) => Result,
-	) => ( input: Input ) => contextBefore( input, transform );
+type Condition<I> = ( input: I ) => any
+type Transform<I, O> = ( input: I ) => O;
+type Context<I, O> = ( input: I, transform: Transform<I, O> ) => O;
+type Otherwise<I, O> = Transform<Transform<I, O>, Transform<I, O>>
 
-const onContext = < Input, Result >(
-	contextBefore: (
-		input: Input,
-		transform: ( input: Input ) => Result
-	) => Result,
-) => (
-		condition: ( input: Input ) => any,
-		transform: ( input: Input ) => Result,
-	) => {
-		const contextOut = (
-			input: Input,
-			transformNext: ( input: Input ) => Result,
-		) => contextBefore(
-			input,
-			( inputOut: Input ) => (
-				condition( inputOut )
-					? transform( inputOut )
-					: transformNext( inputOut )
-			),
-		);
+type Pipeline<I, O> = {
+	on: On<I, O>;
+	otherwise: Otherwise<I, O>;
+}
 
-		return {
-			on: onContext( contextOut ),
-			otherwise: otherwiseContext( contextOut ),
-		};
-	};
+type On<I, O> = ( condition: Condition<I>, transform: Transform<I, O> ) => Pipeline<I, O>
+type OtherwiseContext = <I, O>( contextBefore: Context<I, O> ) => Otherwise<I, O>
+type OnContext = <I, O>( contextBefore: Context<I, O> ) => On<I, O>
 
-const onDirect = < Input, Result >(
-	condition: ( input: Input ) => any,
-	transform: ( input: Input ) => Result,
-) => onContext( (
-		input: Input,
-		transformNext: ( input: Input ) => Result,
-	) => ( transformNext( input ) ) )( condition, transform );
+const applyCondition = <I, O>(
+	condition: Condition<I>,
+	ifTrue: Transform<I, O>,
+	ifFalse: Transform<I, O>,
+): Transform<I, O> =>
+		input => ( condition( input )
+			? ifTrue( input )
+			: ifFalse( input ) );
 
-const otherwiseDirect = < Input, Result >( transform: ( input: Input ) => Result ) => transform;
+// We need to disabled this rule to allow for circular dependencies.
+/* eslint-disable no-use-before-define */
+const getPipeline = <I, O>( context: Context<I, O> ): Pipeline<I, O> => ( {
+	on: onContext( context ),
+	otherwise: otherwiseContext( context ),
+} );
+/* eslint-enable no-use-before-define */
 
-const matcher = { on: onDirect, otherwise: otherwiseDirect };
+const otherwiseContext: OtherwiseContext =
+	contextBefore =>
+		transform =>
+			input =>
+				contextBefore( input, transform );
 
-const match = matcher
-	.on( () => true, ( value: number ) => '!' )
-	.otherwise( ( value: number ) => `${ value }!` );
+const onContext: OnContext =
+	contextBefore =>
+		( condition, transform ) =>
+			getPipeline( ( input, transformNext ) =>
+				contextBefore(
+					input,
+					applyCondition( condition, transform, transformNext ),
+				) );
 
-export const result = match( 222 );
+export const on = <I, O>(
+	condition: Condition<I>,
+	transform: Transform<I, O>,
+) => onContext<I, O>(
+	( input, transformNext ) =>
+		( transformNext( input ) ),
+)( condition, transform );
 
-export default matcher;
+export const otherwise = <I, O>( transform: Transform<I, O> ) => transform;
+
+export default { on, otherwise };
