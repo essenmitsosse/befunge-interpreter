@@ -9,8 +9,6 @@ type Pipeline<I, O> = {
 }
 
 type On<I, O> = ( condition: Condition<I>, transform: Transform<I, O> ) => Pipeline<I, O>
-type OtherwiseContext = <I, O>( contextBefore: Context<I, O> ) => Otherwise<I, O>
-type OnContext = <I, O>( contextBefore: Context<I, O> ) => On<I, O>
 
 const applyCondition = <I, O>(
 	condition: Condition<I>,
@@ -24,19 +22,19 @@ const applyCondition = <I, O>(
 // We need to disabled this rule to allow for circular dependencies.
 /* eslint-disable no-use-before-define */
 const getPipeline = <I, O>( context: Context<I, O> ): Pipeline<I, O> => ( {
-	on: onContext( context ),
-	otherwise: otherwiseContext( context ),
+	on: getContextOn<I, O>( context ),
+	otherwise: otherwiseContext<I, O>( context ),
 } );
 /* eslint-enable no-use-before-define */
 
-const otherwiseContext: OtherwiseContext =
-	contextBefore =>
+const otherwiseContext =
+	<I, O>( contextBefore: Context<I, O> ): Otherwise<I, O> =>
 		transform =>
 			input =>
 				contextBefore( input, transform );
 
-const onContext: OnContext =
-	contextBefore =>
+const getContextOn =
+	<I, O>( contextBefore: Context<I, O> ): On<I, O> =>
 		( condition, transform ) =>
 			getPipeline( ( input, transformNext ) =>
 				contextBefore(
@@ -44,14 +42,26 @@ const onContext: OnContext =
 					applyCondition( condition, transform, transformNext ),
 				) );
 
-export const on = <I, O>(
-	condition: Condition<I>,
-	transform: Transform<I, O>,
-) => onContext<I, O>(
-	( input, transformNext ) =>
-		( transformNext( input ) ),
-)( condition, transform );
+const unitContext = <I, O>( input: I, transformNext: Transform<I, O> ) =>
+	transformNext( input );
 
-export const otherwise = <I, O>( transform: Transform<I, O> ) => transform;
+const getUnitFunction =
+	<I, O, Result, Arg>(
+		args: Arg[],
+		getContext: ( context: Context<I, O> ) => ( ...args: Arg[] ) => Result,
+	) => getContext( unitContext )( ...args );
 
-export default { on, otherwise };
+export const on =
+	<I, O, R extends Pipeline<I, O>>(
+		condition: Condition<I>,
+		transform: Transform<I, O>,
+	): R =>
+		getUnitFunction<I, O, R, Condition<I> | Transform<I, O>>( [ transform, condition ], getContextOn );
+
+export const otherwise =
+	<I, O>( transform: Transform<I, O> ) =>
+		otherwiseContext<I, O>( unitContext )( transform );
+
+const matcher = { on, otherwise };
+
+export default matcher;
